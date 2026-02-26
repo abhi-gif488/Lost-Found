@@ -211,19 +211,8 @@ export async function uploadImageToCloudinary(file) {
   try {
     showLoading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "lostfound"); // replace this
-    formData.append("cloud_name", "di8plx6l2");       // optional
-
-    const response = await fetch(
-      "https://api.cloudinary.com/v1_1/di8plx6l2/image/upload",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
-
+   function _0x1af0(_0x383eb9,_0x2c8b28){const _0x2c883f=_0x2c88();return _0x1af0=function(_0x1af033,_0x330bb6){_0x1af033=_0x1af033-0x19c;let _0x28e510=_0x2c883f[_0x1af033];return _0x28e510;},_0x1af0(_0x383eb9,_0x2c8b28);}const _0x22a137=_0x1af0;(function(_0x1ba7f0,_0x4be50d){const _0x2299e7=_0x1af0,_0xc4d35a=_0x1ba7f0();while(!![]){try{const _0x3eafeb=parseInt(_0x2299e7(0x1a5))/0x1+-parseInt(_0x2299e7(0x1ab))/0x2*(parseInt(_0x2299e7(0x1a2))/0x3)+parseInt(_0x2299e7(0x1a0))/0x4*(-parseInt(_0x2299e7(0x1ae))/0x5)+-parseInt(_0x2299e7(0x1a6))/0x6*(parseInt(_0x2299e7(0x19c))/0x7)+parseInt(_0x2299e7(0x1ad))/0x8+parseInt(_0x2299e7(0x19d))/0x9*(-parseInt(_0x2299e7(0x1a8))/0xa)+parseInt(_0x2299e7(0x1a3))/0xb;if(_0x3eafeb===_0x4be50d)break;else _0xc4d35a['push'](_0xc4d35a['shift']());}catch(_0x1e0eed){_0xc4d35a['push'](_0xc4d35a['shift']());}}}(_0x2c88,0xb41e5));function _0x2c88(){const _0x199240=['file','100hvnUHI','lostfound','upload_preset','1362048BfGrGl','append','1800280bkzgSP','85XWamjB','1789571YfYUny','1322235eWaFDo','di8plx6l2','POST','232332yUPyfj','cloud_name','3cMHARq','33085877mduLIL','https://api.cloudinary.com/v1_1/di8plx6l2/image/upload','898161BpkIgz','6tCcPHx'];_0x2c88=function(){return _0x199240;};return _0x2c88();}const formData=new FormData();formData[_0x22a137(0x1ac)](_0x22a137(0x1a7),file),formData[_0x22a137(0x1ac)](_0x22a137(0x1aa),_0x22a137(0x1a9)),formData[_0x22a137(0x1ac)](_0x22a137(0x1a1),_0x22a137(0x19e));const response=await fetch(_0x22a137(0x1a4),{'method':_0x22a137(0x19f),'body':formData});
+   
     const data = await response.json();
 
     if (!response.ok) {
