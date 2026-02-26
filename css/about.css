@@ -1,0 +1,163 @@
+/* ============================================================
+   css/about.css  —  About Page Specific Styles
+   ============================================================ */
+
+/* ===== HERO ===== */
+.about-hero {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  padding: clamp(3rem, 8vw, 5rem) clamp(1rem, 4vw, 2rem);
+}
+.about-hero .section-title {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+}
+
+/* ===== MISSION ===== */
+.mission-section {
+  background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(6,182,212,0.04));
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.mission-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+  filter: drop-shadow(0 8px 24px rgba(99,102,241,0.3));
+}
+.mission-content h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.mission-content p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+.value-pills { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.value-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.9rem;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ===== HOW IT WORKS — STEPS ===== */
+.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.step-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.step-number {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: white;
+  font-size: 1.1rem;
+  margin: 0 auto 1rem;
+}
+.step-card h3 { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.step-card p  { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+/* ===== GUIDELINES ===== */
+.guidelines-section { background: var(--bg-secondary); }
+.guidelines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.guideline-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: var(--glass-blur);
+  display: flex;
+  gap: 0.875rem;
+  align-items: flex-start;
+  transition: transform 0.2s;
+}
+.guideline-item:hover { transform: translateY(-2px); }
+.guideline-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+.guideline-item h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.25rem; }
+.guideline-item p  { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.55; }
+
+/* ===== TEAM ===== */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.team-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  border: 3px solid var(--accent);
+  display: block;
+  object-fit: cover;
+}
+.team-name { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+.team-role { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+
+/* ===== CTA SECTION ===== */
+.about-cta {
+  background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.05));
+  border-top: 1px solid var(--border-color);
+}
+.about-cta .section-inner {
+  text-align: center;
+  max-width: 600px;
+}
+.about-cta-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .mission-grid   { grid-template-columns: 1fr; text-align: center; }
+  .mission-visual { font-size: 5rem; }
+  .value-pills    { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .about-cta-btns { flex-direction: column; align-items: center; }
+  .about-cta-btns .btn-primary,
+  .about-cta-btns .btn-ghost { width: 100%; max-width: 280px; justify-content: center; }
+}
