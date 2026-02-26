@@ -1,0 +1,17 @@
+/* ============================================================
+   css/lost.css  —  Lost Items Page Specific Styles
+   ============================================================ */
+
+/* Page header accent */
+.page-header h1 .lost-color { color: var(--lost-color); }
+
+/* Post button area */
+#post-btn-wrap  { text-align: right; margin-bottom: 1.5rem; }
+#post-login-hint{ text-align: right; margin-bottom: 1.5rem; }
+
+/* Override modal submit button color for lost page */
+#submit-btn { background: var(--lost-color); }
+#submit-btn:hover:not(:disabled) { background: #dc2626; }
+
+/* Upload area ID for lost modal */
+#upload-area-modal { /* inherits .upload-area styles */ }

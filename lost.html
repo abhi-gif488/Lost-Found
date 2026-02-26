@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse all reported lost items — Community Lost & Found Portal">
+  <title>Lost Items | Community Lost &amp; Found Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lost.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🔍</div>
+        Lost<span style="color:var(--accent)">&amp;</span>Found
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="lost.html" class="active">Lost Items</a></li>
+        <li><a href="found.html">Found Items</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+        <div class="nav-user">
+          <img id="nav-avatar" src="" alt="User avatar">
+          <span id="nav-username"></span>
+        </div>
+        <a href="login.html" id="nav-login" class="btn-primary">Sign In</a>
+        <button id="nav-logout" style="display:none">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Page header -->
+    <div class="page-header">
+      <span class="section-tag">Browse &amp; Search</span>
+      <h1>🔴 <span class="lost-color">Lost Items</span></h1>
+      <p>Help someone find their belongings. Browse or search all reported lost items.</p>
+    </div>
+
+    <section style="padding-top:0;">
+      <div class="section-inner">
+
+        <!-- Action bar -->
+        <div id="post-btn-wrap" style="display:none;">
+          <button id="open-post-modal" class="btn-primary">➕ Report Lost Item</button>
+        </div>
+        <div id="post-login-hint">
+          <a href="login.html" class="btn-ghost">Sign in to report an item</a>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="search-bar-wrap" role="search">
+          <div class="search-input-wrap">
+            <input type="search" id="search-input" class="search-input"
+              placeholder="Search lost items by name or description…" aria-label="Search lost items">
+          </div>
+          <select id="filter-category" class="filter-select" aria-label="Filter by category">
+            <option value="">All Categories</option>
+            <option>Electronics</option><option>Bags</option><option>Keys</option>
+            <option>Wallets</option><option>Pets</option><option>Jewelry</option>
+            <option>Clothing</option><option>Accessories</option><option>Documents</option>
+            <option>Sports</option><option>Other</option>
+          </select>
+        </div>
+
+        <!-- Items grid -->
+        <div class="items-grid" id="items-grid" aria-live="polite">
+          <div class="loading-grid">
+            <div class="skeleton-card"></div><div class="skeleton-card"></div>
+            <div class="skeleton-card"></div><div class="skeleton-card"></div>
+            <div class="skeleton-card"></div><div class="skeleton-card"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== POST MODAL ===== -->
+  <div class="modal-overlay" id="post-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title">🔴 Report a Lost Item</h2>
+        <button class="modal-close" id="close-post-modal" aria-label="Close modal">✕</button>
+      </div>
+      <form id="item-form" novalidate>
+        <div class="form-group">
+          <label class="form-label">Item Photo</label>
+          <div class="upload-area" id="upload-area-modal">
+            <input type="file" id="item-image" accept="image/*" aria-label="Upload item photo">
+            <span class="upload-icon">📷</span>
+            <p class="upload-text">Click or drag &amp; drop (max 5 MB)</p>
+            <img id="img-preview" src="" alt="Image preview">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="item-title">Item Name *</label>
+            <input type="text" id="item-title" class="form-input" placeholder="e.g. Blue Backpack" required maxlength="80">
+            <div class="form-error" id="title-error" role="alert"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="item-category">Category *</label>
+            <select id="item-category" class="form-select" required>
+              <option value="">Select category</option>
+              <option>Electronics</option><option>Bags</option><option>Keys</option>
+              <option>Wallets</option><option>Pets</option><option>Jewelry</option>
+              <option>Clothing</option><option>Accessories</option><option>Documents</option>
+              <option>Sports</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="item-description">Description *</label>
+          <textarea id="item-description" class="form-textarea"
+            placeholder="Describe the item — colour, size, brand, distinctive features…" required maxlength="1000"></textarea>
+          <div class="form-error" id="desc-error" role="alert"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="item-location">Location *</label>
+            <input type="text" id="item-location" class="form-input" placeholder="Where was it lost?" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="item-date">Date *</label>
+            <input type="date" id="item-date" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="item-contact">Contact Info (optional)</label>
+          <input type="text" id="item-contact" class="form-input" placeholder="Phone number or alternate email">
+        </div>
+        <input type="hidden" id="item-type" value="lost">
+        <button type="submit" class="btn-submit" id="submit-btn">📤 Post Lost Item</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="font-size:1.1rem;">
+            <div class="nav-logo-icon">🔍</div>Lost<span style="color:var(--accent)">&amp;</span>Found
+          </a>
+          <p>A community-driven platform for reporting and recovering lost and found items.</p>
+          <div class="footer-social">
+            <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-btn" aria-label="Facebook">f</a>
+            <a href="#" class="social-btn" aria-label="Instagram">📸</a>
+            <a href="#" class="social-btn" aria-label="Email">✉</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lost.html">Lost Items</a></li>
+            <li><a href="found.html">Found Items</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Sign In</a></li>
+            <li><a href="login.html">Register</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="about.html">How it Works</a></li>
+            <li><a href="about.html#guidelines">Guidelines</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Community Lost &amp; Found Portal. All rights reserved.</span>
+        <span>Made with ❤️ for the community</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="./js/lost.js"></script>
+</body>
+</html>
