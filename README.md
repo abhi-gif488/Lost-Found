@@ -77,7 +77,6 @@ This structure keeps the project clean and maintainable.
 * ✅ Search Functionality
 * ✅ Clean & Premium UI
 * ✅ Download Feature (if implemented)
-
 ---
 
 ## 🛠️ 5. Technologies Used
