@@ -1,0 +1,18 @@
+/* ============================================================
+   css/found.css  —  Found Items Page Specific Styles
+   ============================================================ */
+
+/* Page header accent */
+.page-header h1 .found-color { color: var(--found-color); }
+
+/* Post button area */
+#post-btn-wrap  { text-align: right; margin-bottom: 1.5rem; }
+#post-login-hint{ text-align: right; margin-bottom: 1.5rem; }
+
+/* Override modal post button */
+#open-post-modal { background: var(--found-color); }
+#open-post-modal:hover { background: #16a34a; }
+
+/* Submit btn for found */
+#submit-btn { background: var(--found-color); }
+#submit-btn:hover:not(:disabled) { background: #16a34a; }
