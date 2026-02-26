@@ -47,23 +47,8 @@ The system is designed to be responsive and works on both desktop and mobile dev
 
 ---
 
-## 🏗️ 3. Project Structure
+<img width="833" height="456" alt="image" src="https://github.com/user-attachments/assets/59414805-165a-487d-befc-01861b7a9823" />
 
-Below is the basic folder structure of the project:
-
-production/
-├── index.html     → js/index.js     + css/index.css
-├── login.html     → js/login.js     + css/login.css
-├── lost.html      → js/lost.js      + css/lost.css
-├── found.html     → js/found.js     + css/found.css
-├── about.html     → js/about.js     + css/about.css
-├── js/
-│   ├── firebase-config.js  ← ✏️ ONLY file you edit (your API keys)
-│   ├── auth.js, upload.js, render.js, feedback.js
-└── css/
-    └── style.css (shared global)
-
-This structure keeps the project clean and maintainable.
 
 ## 🚀 4. Features
 
