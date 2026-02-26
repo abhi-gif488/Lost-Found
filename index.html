@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Community Lost & Found Portal — Report and recover lost and found items in your community.">
+  <title>Community Lost &amp; Found Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon">🔍</div>
+        Lost<span style="color:var(--accent)">&amp;</span>Found
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="lost.html">Lost Items</a></li>
+        <li><a href="found.html">Found Items</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+        <div class="nav-user">
+          <img id="nav-avatar" src="" alt="User avatar">
+          <span id="nav-username"></span>
+        </div>
+        <a href="login.html" id="nav-login" class="btn-primary">Sign In</a>
+        <button id="nav-logout" style="display:none">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge fade-in">🤝 Community-Powered Platform</div>
+        <h1 class="fade-in fade-in-delay-1">
+          Reuniting People With<br>Their <span class="highlight">Lost Things</span>
+        </h1>
+        <p class="hero-sub fade-in fade-in-delay-2">
+          A trusted community portal for reporting and recovering lost and found items. Post, search, and connect with your neighbours to bring things home.
+        </p>
+        <div class="hero-ctas fade-in fade-in-delay-3">
+          <a href="#report-section" class="btn-secondary" id="hero-lost-btn">🔴 Report Lost Item</a>
+          <a href="#report-section" class="btn-primary"   id="hero-found-btn">🟢 Report Found Item</a>
+          <a href="lost.html"       class="btn-ghost">Browse Items →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <section style="padding-top:0;">
+      <div class="section-inner">
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Total Posts</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-lost">—</div><div class="stat-label">Lost Items</div></div>
+          <div class="stat-card"><div class="stat-num" id="stat-found">—</div><div class="stat-label">Found Items</div></div>
+          <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-label">Available</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section>
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">How It Works</span>
+          <h2 class="section-title">Simple, Fast &amp; Effective</h2>
+          <p class="section-sub">Our platform makes it easy to report and recover items in just a few steps.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card fade-in">
+            <div class="feature-icon">📸</div>
+            <h3>Upload &amp; Describe</h3>
+            <p>Post a photo and description of your lost or found item with location details.</p>
+          </div>
+          <div class="feature-card fade-in fade-in-delay-1">
+            <div class="feature-icon">🔍</div>
+            <h3>Search &amp; Filter</h3>
+            <p>Browse items by category, location, or keyword to find what you're looking for.</p>
+          </div>
+          <div class="feature-card fade-in fade-in-delay-2">
+            <div class="feature-icon">📬</div>
+            <h3>Connect Directly</h3>
+            <p>Contact the poster directly via email to arrange a safe meeting and return the item.</p>
+          </div>
+          <div class="feature-card fade-in fade-in-delay-3">
+            <div class="feature-icon">🏆</div>
+            <h3>Community Trust</h3>
+            <p>Built on community goodwill with verified accounts and transparent posting history.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RECENT LOST ===== -->
+    <section style="padding-bottom:1.5rem;">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Recently Posted</span>
+          <h2 class="section-title">Recent <span class="lost-color">Lost</span> Items</h2>
+        </div>
+        <div class="items-grid" id="recent-lost-grid">
+          <div class="loading-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:2rem;">
+          <a href="lost.html" class="btn-ghost">View All Lost Items →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== RECENT FOUND ===== -->
+    <section style="padding-top:1.5rem;">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Recently Posted</span>
+          <h2 class="section-title">Recent <span class="found-color">Found</span> Items</h2>
+        </div>
+        <div class="items-grid" id="recent-found-grid">
+          <div class="loading-grid">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:2rem;">
+          <a href="found.html" class="btn-ghost">View All Found Items →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== REPORT SECTION ===== -->
+    <section class="report-section" id="report-section">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Post an Item</span>
+          <h2 class="section-title">Report a Lost or Found Item</h2>
+          <p class="section-sub">Help reunite items with their owners by sharing details quickly.</p>
+        </div>
+
+        <!-- Not signed in -->
+        <div id="report-auth-gate" class="auth-gate">
+          <div style="font-size:3rem;">🔐</div>
+          <h3>Sign In Required</h3>
+          <p>You need to be signed in to post an item and help protect our community.</p>
+          <a href="login.html" class="btn-primary" style="display:inline-flex;">Sign In to Post</a>
+        </div>
+
+        <!-- Signed in — form -->
+        <div id="report-form-wrap" style="display:none;">
+          <div class="form-card">
+            <form id="item-form" novalidate>
+
+              <div class="form-group">
+                <label class="form-label">Item Type *</label>
+                <div class="type-selector">
+                  <button type="button" class="type-btn active" data-value="lost">🔴 Lost Item</button>
+                  <button type="button" class="type-btn"        data-value="found">🟢 Found Item</button>
+                </div>
+                <input type="hidden" id="item-type" value="lost">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Item Photo</label>
+                <div class="upload-area" id="upload-area">
+                  <input type="file" id="item-image" accept="image/*" aria-label="Upload item photo">
+                  <span class="upload-icon">📷</span>
+                  <p class="upload-text">Click or drag &amp; drop an image (max 5 MB)</p>
+                  <img id="img-preview" src="" alt="Image preview">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="item-title">Item Name *</label>
+                  <input type="text" id="item-title" class="form-input" placeholder="e.g. Blue Backpack" required maxlength="80">
+                  <div class="form-error" id="title-error" role="alert"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="item-category">Category *</label>
+                  <select id="item-category" class="form-select" required>
+                    <option value="">Select category</option>
+                    <option>Electronics</option><option>Bags</option><option>Keys</option>
+                    <option>Wallets</option><option>Pets</option><option>Jewelry</option>
+                    <option>Clothing</option><option>Accessories</option><option>Documents</option>
+                    <option>Sports</option><option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="item-description">Description *</label>
+                <textarea id="item-description" class="form-textarea"
+                  placeholder="Describe the item — colour, size, brand, distinctive features…" required maxlength="1000"></textarea>
+                <div class="form-error" id="desc-error" role="alert"></div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="item-location">Location *</label>
+                  <input type="text" id="item-location" class="form-input" placeholder="Where was it lost / found?" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="item-date">Date *</label>
+                  <input type="date" id="item-date" class="form-input" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="item-contact">Contact Info (optional)</label>
+                <input type="text" id="item-contact" class="form-input" placeholder="Phone number or alternate email">
+              </div>
+
+              <button type="submit" class="btn-submit" id="submit-btn">✅ Post Item</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEEDBACK SECTION ===== -->
+    <section>
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Community Voice</span>
+          <h2 class="section-title">What People Say</h2>
+        </div>
+        <div class="feedback-grid">
+
+          <!-- Static testimonials -->
+          <div style="display:flex;flex-direction:column;gap:1rem;">
+            <div class="feedback-card">
+              <div class="feedback-header">
+                <img src="https://ui-avatars.com/api/?name=Maria+K&background=6366f1&color=fff&size=40" alt="Maria K." class="feedback-avatar">
+                <div>
+                  <div class="feedback-name">Maria K.</div>
+                  <div class="feedback-time">2 days ago</div>
+                </div>
+              </div>
+              <p class="feedback-text">Found my lost dog through this portal within 24 hours! The community here is incredibly helpful and responsive.</p>
+              <div class="stars">★★★★★</div>
+            </div>
+            <div class="feedback-card">
+              <div class="feedback-header">
+                <img src="https://ui-avatars.com/api/?name=James+T&background=06b6d4&color=fff&size=40" alt="James T." class="feedback-avatar">
+                <div>
+                  <div class="feedback-name">James T.</div>
+                  <div class="feedback-time">1 week ago</div>
+                </div>
+              </div>
+              <p class="feedback-text">Someone found my wallet with all my cards and returned it. This platform is doing amazing work for the community!</p>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+
+          <!-- Feedback form -->
+          <div>
+            <!-- Not signed in -->
+            <div id="feedback-auth-gate" class="auth-gate" style="display:none;">
+              <div style="font-size:2.5rem;">💬</div>
+              <h3>Share Your Experience</h3>
+              <p>Sign in to leave feedback and help others know how we're doing.</p>
+              <a href="login.html" class="btn-primary" style="display:inline-flex;">Sign In</a>
+            </div>
+
+            <!-- Signed in -->
+            <div id="feedback-form-wrap" style="display:none;">
+              <div class="form-card">
+                <h3 style="font-family:var(--font-heading);font-weight:700;margin-bottom:1rem;">Leave Feedback</h3>
+                <form id="feedback-form" novalidate>
+                  <div class="form-group">
+                    <label class="form-label">Your Rating</label>
+                    <div class="rating-stars" id="rating-stars" role="group" aria-label="Star rating">
+                      <button type="button" data-val="1" aria-label="1 star">⭐</button>
+                      <button type="button" data-val="2" aria-label="2 stars">⭐</button>
+                      <button type="button" data-val="3" aria-label="3 stars">⭐</button>
+                      <button type="button" data-val="4" aria-label="4 stars">⭐</button>
+                      <button type="button" data-val="5" aria-label="5 stars">⭐</button>
+                    </div>
+                    <input type="hidden" id="rating-val" value="5">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="feedback-msg">Your Experience</label>
+                    <textarea id="feedback-msg" class="form-textarea" style="min-height:90px;"
+                      placeholder="Tell us about your experience…" maxlength="500"></textarea>
+                  </div>
+                  <button type="submit" class="btn-submit">Submit Feedback</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="font-size:1.1rem;">
+            <div class="nav-logo-icon">🔍</div>Lost<span style="color:var(--accent)">&amp;</span>Found
+          </a>
+          <p>A community-driven platform for reporting and recovering lost and found items. Built with transparency and trust.</p>
+          <div class="footer-social">
+            <a href="#" class="social-btn" title="Twitter / X" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-btn" title="Facebook"    aria-label="Facebook">f</a>
+            <a href="#" class="social-btn" title="Instagram"   aria-label="Instagram">📸</a>
+            <a href="#" class="social-btn" title="Email"       aria-label="Email">✉</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lost.html">Lost Items</a></li>
+            <li><a href="found.html">Found Items</a></li>
+            <li><a href="about.html">About Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Sign In</a></li>
+            <li><a href="login.html">Register</a></li>
+            <li><a href="#report-section">Post Item</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="about.html">How it Works</a></li>
+            <li><a href="about.html#guidelines">Guidelines</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Community Lost &amp; Found Portal. All rights reserved.</span>
+        <span>Made with ❤️ for the community</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script type="module" src="./js/index.js"></script>
+</body>
+</html>
