@@ -1,8 +1,5 @@
-/* ============================================================
-   firebase-config.js
-   Central Firebase initialization & exports
-   ⚠️  FILL IN YOUR OWN CONFIG BELOW — nothing else to change
-   ============================================================ */
+//  Central Firebase initialization & exports
+
 
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAnalytics }           from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
@@ -33,9 +30,8 @@ import {
   getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-/* ============================================================
-   ✏️  YOUR FIREBASE CONFIG  (only place you need to edit)
-   ============================================================ */
+//hehe don't be oversmart -If i get you I'll ****!
+
 const firebaseConfig = {
   apiKey: "AIzaSyAXkO4OxdHf1RtM8mLJnYNKevpPTxuKnLc",
   authDomain: "lostfound-e4e04.firebaseapp.com",
@@ -46,9 +42,6 @@ const firebaseConfig = {
   measurementId: "G-GLRBNNQSRJ"  // optional
 };
 
-/* ============================================================
-   INITIALIZE (safe for multi-import across modules)
-   ============================================================ */
 const app      = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const db       = getFirestore(app);
 const auth     = getAuth(app);
@@ -57,9 +50,7 @@ const gProvider = new GoogleAuthProvider();
 
 try { getAnalytics(app); } catch (_) { /* analytics optional */ }
 
-/* ============================================================
-   EXPORTS
-   ============================================================ */
+
 export {
   app, auth, db, storage, gProvider,
   /* auth helpers */
