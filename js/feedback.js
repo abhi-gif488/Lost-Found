@@ -1,7 +1,5 @@
-/* ============================================================
-   js/feedback.js
-   Submit user feedback to Firestore
-   ============================================================ */
+//  Submit user feedback to Firestore
+ 
 
 import {
   auth, db, collection, addDoc, serverTimestamp

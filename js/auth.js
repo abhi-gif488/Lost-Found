@@ -1,7 +1,5 @@
-/* ============================================================
-   js/auth.js
-   Authentication helpers + Toast notifications + Nav setup
-   ============================================================ */
+// Authentication helpers + Toast notifications + Nav setup
+   
 
 import {
   auth, gProvider, db, collection, getDocs, query, orderBy,
@@ -9,9 +7,8 @@ import {
   signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile
 } from "./firebase-config.js";
 
-/* ============================================================
-   TOAST NOTIFICATIONS
-   ============================================================ */
+//  TOAST NOTIFICATIONS
+   
 
 /**
  * Show a toast notification.
@@ -39,9 +36,7 @@ export function showToast(message, type = "info") {
   }, 3800);
 }
 
-/* ============================================================
-   FIREBASE AUTH FUNCTIONS
-   ============================================================ */
+
 
 /** Sign in with Google popup */
 export const signInWithGoogle = () => signInWithPopup(auth, gProvider);
@@ -71,10 +66,10 @@ export const getCurrentUser = () => auth.currentUser;
 export const observeAuthState = (callback) =>
   onAuthStateChanged(auth, callback);
 
-/* ============================================================
-   NAVBAR AUTH MANAGEMENT
-   Updates the navbar on every page based on auth state.
-   ============================================================ */
+
+   //NAVBAR AUTH MANAGEMENT
+  // Updates the navbar on every page based on auth state.
+
 function updateNavbar(user) {
   const avatar    = document.getElementById("nav-avatar");
   const username  = document.getElementById("nav-username");
@@ -102,10 +97,10 @@ function updateNavbar(user) {
   }
 }
 
-/* ============================================================
-   INIT AUTH OBSERVER
-   Call once per page. Handles navbar + optional page callback.
-   ============================================================ */
+
+//   INIT AUTH OBSERVER
+  // Call once per page. Handles navbar + optional page callback.
+
 
 /**
  * @param {function(firebase.User|null): void} [pageCallback]
@@ -124,10 +119,10 @@ export function initAuthObserver(pageCallback) {
   });
 }
 
-/* ============================================================
-   COMMON PAGE INIT  (theme + mobile nav)
-   Call this on every page for shared behaviour.
-   ============================================================ */
+
+//   COMMON PAGE INIT  (theme + mobile nav)
+  // Call this on every page for shared behaviour.
+ 
 export function initCommon() {
   // Theme toggle
   const saved = localStorage.getItem("theme") || "light";
@@ -160,9 +155,7 @@ export function initCommon() {
   }
 }
 
-/* ============================================================
-   GLOBAL LOADING OVERLAY
-   ============================================================ */
+
 export function showLoading(show) {
   let loader = document.getElementById("global-loader");
   if (!loader) {

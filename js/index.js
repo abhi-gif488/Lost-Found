@@ -1,12 +1,8 @@
-/* ============================================================
-   js/index.js
-   Home page — auth gate, forms, stats, feedback
-   ============================================================ */
 
 import { initCommon, initAuthObserver, showToast } from "./auth.js";
 import { submitItem, validateItemForm, setupImagePreview, setupDragDrop } from "./upload.js";
 import { submitFeedback } from "./feedback.js";
-import { renderRecentPreview } from "./render.js";
+import { renderRecentPreview, clearItemCache } from "./render.js";
 
 /* ---- Init common (theme + nav) ---- */
 initCommon();
@@ -100,7 +96,7 @@ document.getElementById("item-form")?.addEventListener("submit", async (e) => {
     if (preview) preview.style.display = "none";
     document.querySelector(".upload-area")?.classList.remove("has-image");
     if (dateInput) dateInput.value = new Date().toISOString().split("T")[0];
-    // Refresh preview
+    clearItemCache();   // force fresh fetch
     await renderRecentPreview("recent-lost-grid", "recent-found-grid");
     updateStats();
   }

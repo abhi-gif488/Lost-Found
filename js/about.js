@@ -1,7 +1,5 @@
-/* ============================================================
-   js/about.js
-   About page — auth, common setup only
-   ============================================================ */
+// About page — auth, common setup only
+  
 
 import { initCommon, initAuthObserver } from "./auth.js";
 

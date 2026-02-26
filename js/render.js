@@ -1,41 +1,57 @@
 /* ============================================================
    js/render.js
-   Fetch, render and filter item cards
+   Fetch, render and filter item cards.
+
+   ROOT-CAUSE FIX:
+   Using  where('type','==',x) + orderBy('createdAt','desc')
+   requires a Firestore composite index.  Without that index
+   Firestore throws → catch falls back to mock data →
+   lost.html / found.html show demo items instead of real posts.
+
+   Solution: always fetch ALL items with a single orderBy query
+   (no composite index needed), then filter on the client side.
    ============================================================ */
 
 import {
-  db, collection, getDocs, query, orderBy, where
+  db, collection, getDocs, query, orderBy
 } from "./firebase-config.js";
 import { downloadItemText, downloadItemImage } from "./upload.js";
 
-/* ============================================================
-   FETCH ITEMS FROM FIRESTORE
-   ============================================================ */
-export async function fetchItems(type = null) {
+// INTERNAL CACHE  (one network call per page load)
+
+let _cache = null;
+
+async function getAllItems() {
+  if (_cache) return _cache;
   try {
-    let q;
-    if (type) {
-      q = query(
-        collection(db, "items"),
-        where("type", "==", type),
-        orderBy("createdAt", "desc")
-      );
-    } else {
-      q = query(collection(db, "items"), orderBy("createdAt", "desc"));
-    }
+    const q    = query(collection(db, "items"), orderBy("createdAt", "desc"));
     const snap = await getDocs(q);
-    return snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    _cache = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    console.log(`[render] Loaded ${_cache.length} items from Firestore`);
+    return _cache;
   } catch (err) {
-    console.warn("Firestore fetch failed, using demo data:", err.message);
-    return getMockItems(type);
+    console.warn("[render] Firestore fetch failed — using demo data.\n", err.message);
+    _cache = getMockItems();
+    return _cache;
   }
 }
 
-/* ============================================================
-   MOCK DATA (shown when Firebase not yet configured)
-   ============================================================ */
-function getMockItems(type) {
-  const items = [
+/** Invalidate cache (call after posting a new item) */
+export function clearItemCache() { _cache = null; }
+
+
+   //PUBLIC FETCH  (type = 'lost' | 'found' | null = all)
+   
+export async function fetchItems(type = null) {
+  const all = await getAllItems();
+  return type ? all.filter(i => i.type === type) : all;
+}
+
+
+   //MOCK DATA (shown when Firebase not yet configured)
+   
+function getMockItems() {
+  return [
     {
       id: "m1", type: "lost",  title: "Blue Backpack",        category: "Bags",
       description: "Navy blue Jansport backpack with laptop sleeve and a small red car keychain.",
@@ -73,29 +89,36 @@ function getMockItems(type) {
       image: null, userEmail: "priya@example.com", userName: "Priya Patel", contact: "priya@example.com"
     }
   ];
-  return type ? items.filter(i => i.type === type) : items;
 }
 
-/* ============================================================
-   HELPERS
-   ============================================================ */
+
+   //HELPERS
+   
 const CATEGORY_ICONS = {
   Electronics: "📱", Bags: "🎒", Keys: "🔑", Wallets: "👛",
   Pets: "🐾", Jewelry: "💍", Clothing: "👕", Accessories: "👓",
   Documents: "📄", Sports: "⚽", Other: "📦"
 };
 
-/** Resolve image URL from either old (string) or new ({url}) format */
+/**
+ * Resolve image URL — handles every format the data may be stored in:
+ *   item.imageURL        = "https://..."   (old flat-string field)
+ *   item.image           = "https://..."   (string stored directly)
+ *   item.image.url       = "https://..."   (current object format)
+ */
 function resolveImageURL(item) {
+  if (!item) return null;
+  // Legacy flat field
+  if (item.imageURL && typeof item.imageURL === "string") return item.imageURL;
   if (!item.image) return null;
   if (typeof item.image === "string") return item.image;
   if (typeof item.image === "object" && item.image.url) return item.image.url;
   return null;
 }
 
-/* ============================================================
-   ITEM CARD HTML
-   ============================================================ */
+
+//   ITEM CARD HTML
+
 export function createItemCard(item) {
   const icon      = CATEGORY_ICONS[item.category] || "📦";
   const typeColor = item.type === "lost" ? "var(--lost-color)" : "var(--found-color)";
@@ -146,9 +169,9 @@ export function createItemCard(item) {
     </div>`;
 }
 
-/* ============================================================
-   SETUP GLOBAL ITEM ACTIONS
-   ============================================================ */
+
+  // SETUP GLOBAL ITEM ACTIONS
+  
 function setupActions(itemMap) {
   window._lf = window._lf || {};
 
@@ -168,9 +191,9 @@ function setupActions(itemMap) {
   };
 }
 
-/* ============================================================
-   RENDER FULL ITEMS GRID
-   ============================================================ */
+
+ //  RENDER FULL ITEMS GRID
+ 
 export async function renderItemsGrid(containerId, type = null) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -192,9 +215,8 @@ export async function renderItemsGrid(containerId, type = null) {
   container.innerHTML = items.map(createItemCard).join("");
 }
 
-/* ============================================================
-   RENDER RECENT PREVIEW (home page)
-   ============================================================ */
+//  RENDER RECENT PREVIEW (home page)
+ 
 export async function renderRecentPreview(lostId, foundId, limit = 3) {
   const all   = await fetchItems();
   window._allItems = all;                // expose for stats
@@ -221,9 +243,8 @@ export async function renderRecentPreview(lostId, foundId, limit = 3) {
   }
 }
 
-/* ============================================================
-   SEARCH & FILTER
-   ============================================================ */
+// SEARCH & FILTER
+  
 export function setupSearchAndFilter(containerId, searchId, categoryId, typeId) {
   const searchEl   = document.getElementById(searchId);
   const categoryEl = document.getElementById(categoryId);
@@ -271,9 +292,8 @@ export function setupSearchAndFilter(containerId, searchId, categoryId, typeId) 
   typeEl?.addEventListener("change", apply);
 }
 
-/* ============================================================
-   HELPERS
-   ============================================================ */
+ //  HELPERS
+ 
 function skeletons(n) {
   return `<div class="loading-grid">${Array.from({ length: n }, () =>
     '<div class="skeleton-card"></div>').join("")}</div>`;

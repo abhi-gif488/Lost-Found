@@ -1,11 +1,7 @@
-/* ============================================================
-   js/lost.js
-   Lost Items page — render, search, post modal
-   ============================================================ */
 
 import { initCommon, initAuthObserver, showToast } from "./auth.js";
 import { submitItem, validateItemForm, setupImagePreview, setupDragDrop } from "./upload.js";
-import { renderItemsGrid, setupSearchAndFilter } from "./render.js";
+import { renderItemsGrid, setupSearchAndFilter, clearItemCache } from "./render.js";
 
 /* ---- Common ---- */
 initCommon();
@@ -78,6 +74,7 @@ document.getElementById("item-form")?.addEventListener("submit", async (e) => {
   if (id) {
     modal?.classList.remove("open");
     resetForm();
+    clearItemCache();   // force fresh fetch so new post appears immediately
     await renderItemsGrid("items-grid", "lost");
     setupSearchAndFilter("items-grid", "search-input", "filter-category", null);
   }
