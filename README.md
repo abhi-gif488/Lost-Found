@@ -51,7 +51,6 @@ The system is designed to be responsive and works on both desktop and mobile dev
 
 Below is the basic folder structure of the project:
 
-```
 production/
 ├── index.html     → js/index.js     + css/index.css
 ├── login.html     → js/login.js     + css/login.css
@@ -65,8 +64,6 @@ production/
     └── style.css (shared global)
 
 This structure keeps the project clean and maintainable.
-
----
 
 ## 🚀 4. Features
 
