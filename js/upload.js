@@ -1,7 +1,4 @@
-/* ============================================================
-   js/upload.js
-   Item submission, image upload, form validation, downloads
-   ============================================================ */
+
 
 import {
   auth, db, storage,
@@ -10,9 +7,7 @@ import {
 } from "./firebase-config.js";
 import { showToast, showLoading } from "./auth.js";
 
-/* ============================================================
-   SUBMIT ITEM TO FIRESTORE + STORAGE
-   ============================================================ */
+
 export async function submitItem(formData, imageFile) {
   const user = auth.currentUser;
   if (!user) {
@@ -81,9 +76,7 @@ export async function submitItem(formData, imageFile) {
   }
 }
 
-/* ============================================================
-   IMAGE PREVIEW
-   ============================================================ */
+
 export function setupImagePreview(inputId, previewId) {
   const input   = document.getElementById(inputId);
   const preview = document.getElementById(previewId);
@@ -110,9 +103,7 @@ export function setupImagePreview(inputId, previewId) {
   });
 }
 
-/* ============================================================
-   DRAG-AND-DROP SUPPORT
-   ============================================================ */
+
 export function setupDragDrop(areaId, inputId) {
   const area  = document.getElementById(areaId);
   const input = document.getElementById(inputId);
@@ -134,9 +125,6 @@ export function setupDragDrop(areaId, inputId) {
   });
 }
 
-/* ============================================================
-   FORM VALIDATION
-   ============================================================ */
 export function validateItemForm(formData) {
   const errors = [];
   if (!formData.title || formData.title.trim().length < 3)
@@ -152,9 +140,7 @@ export function validateItemForm(formData) {
   return errors;
 }
 
-/* ============================================================
-   DOWNLOAD ITEM AS TEXT FILE
-   ============================================================ */
+
 export function downloadItemText(item) {
   const content = `COMMUNITY LOST & FOUND PORTAL
 ==============================

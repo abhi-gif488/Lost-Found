@@ -1,14 +1,22 @@
-// Authentication helpers + Toast notifications + Nav setup
-   
+/* ============================================================
+   js/auth.js
+   Authentication helpers, toast notifications, navbar updates
+   ============================================================ */
 
 import {
   auth, gProvider, db, collection, getDocs, query, orderBy,
-  signInWithPopup, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged,
+  updateProfile
 } from "./firebase-config.js";
 
-//  TOAST NOTIFICATIONS
-   
+/* ============================================================
+   TOAST NOTIFICATIONS
+   ============================================================ */
 
 /**
  * Show a toast notification.
@@ -22,7 +30,7 @@ export function showToast(message, type = "info") {
   const icons = { success: "✅", error: "❌", info: "ℹ️" };
   const toast  = document.createElement("div");
   toast.className = `toast toast-${type}`;
-  toast.innerHTML = `<span class="toast-icon">${icons[type] || icons.info}</span>
+  toast.innerHTML = `<span class="toast-icon" aria-hidden="true">${icons[type] || icons.info}</span>
                      <span>${message}</span>`;
   container.appendChild(toast);
 
@@ -32,130 +40,122 @@ export function showToast(message, type = "info") {
 
   setTimeout(() => {
     toast.classList.remove("show");
-    toast.addEventListener("transitionend", () => toast.remove());
+    toast.addEventListener("transitionend", () => toast.remove(), { once: true });
   }, 3800);
 }
 
+/* ============================================================
+   FIREBASE AUTH FUNCTIONS
+   ============================================================ */
 
-
-/** Sign in with Google popup */
 export const signInWithGoogle = () => signInWithPopup(auth, gProvider);
 
-/** Register new user with email + password + display name */
 export const registerWithEmail = async (email, password, name) => {
   const cred = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(cred.user, { displayName: name });
   return cred;
 };
 
-/** Sign in existing user with email + password */
 export const loginWithEmail = (email, password) =>
   signInWithEmailAndPassword(auth, email, password);
 
-/** Sign out */
+/** Send Firebase password reset email */
+export const resetPassword = (email) =>
+  sendPasswordResetEmail(auth, email);
+
 export const logout = async () => {
   await signOut(auth);
   showToast("Signed out successfully", "info");
   window.location.href = "index.html";
 };
 
-/** Get current user (may be null) */
 export const getCurrentUser = () => auth.currentUser;
 
-/** Observe auth state changes */
 export const observeAuthState = (callback) =>
   onAuthStateChanged(auth, callback);
 
-
-   //NAVBAR AUTH MANAGEMENT
-  // Updates the navbar on every page based on auth state.
-
+/* ============================================================
+   NAVBAR UPDATE — Visibility-based (no CLS)
+   Uses .show class instead of display:none/block so reserved
+   space is never lost and buttons don't shift layout.
+   ============================================================ */
 function updateNavbar(user) {
-  const avatar    = document.getElementById("nav-avatar");
-  const username  = document.getElementById("nav-username");
-  const loginBtn  = document.getElementById("nav-login");
-  const logoutBtn = document.getElementById("nav-logout");
+  /* Retry up to 20 times while navbar.html is still loading */
+  let attempts = 0;
+  const tryUpdate = () => {
+    const avatar    = document.getElementById("nav-avatar");
+    const username  = document.getElementById("nav-username");
+    const loginBtn  = document.getElementById("nav-login");
+    const logoutBtn = document.getElementById("nav-logout");
 
-  if (user) {
-    if (avatar) {
-      const photoURL = user.photoURL ||
-        `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || user.email)}&background=6366f1&color=fff&size=68`;
-      avatar.src   = photoURL;
-      avatar.style.display = "block";
+    /* Navbar not loaded yet — retry */
+    if (!loginBtn && attempts < 20) {
+      attempts++;
+      setTimeout(tryUpdate, 80);
+      return;
     }
-    if (username) {
-      username.textContent = user.displayName || user.email.split("@")[0];
-      username.style.display = "block";
+
+    if (user) {
+      /* Show user info */
+      if (avatar) {
+        const photoURL = user.photoURL ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || user.email)}&background=6366f1&color=fff&size=68`;
+        avatar.src = photoURL;
+        avatar.classList.add("show");
+      }
+      if (username) {
+        username.textContent = user.displayName || user.email.split("@")[0];
+        username.classList.add("show");
+      }
+      if (loginBtn)  loginBtn.classList.remove("show");
+      if (logoutBtn) logoutBtn.classList.add("show");
+    } else {
+      /* Show login button */
+      if (avatar)    { avatar.src = ""; avatar.classList.remove("show"); }
+      if (username)  { username.textContent = ""; username.classList.remove("show"); }
+      if (loginBtn)  loginBtn.classList.add("show");
+      if (logoutBtn) logoutBtn.classList.remove("show");
     }
-    if (loginBtn)  loginBtn.style.display  = "none";
-    if (logoutBtn) logoutBtn.style.display = "inline-flex";
-  } else {
-    if (avatar)    { avatar.src = ""; avatar.style.display = "none"; }
-    if (username)  { username.textContent = ""; username.style.display = "none"; }
-    if (loginBtn)  loginBtn.style.display  = "inline-flex";
-    if (logoutBtn) logoutBtn.style.display = "none";
-  }
+  };
+  tryUpdate();
 }
 
-
-//   INIT AUTH OBSERVER
-  // Call once per page. Handles navbar + optional page callback.
-
-
-/**
- * @param {function(firebase.User|null): void} [pageCallback]
- */
+/* ============================================================
+   INIT AUTH OBSERVER
+   Call once per page. Handles navbar + optional page callback.
+   ============================================================ */
 export function initAuthObserver(pageCallback) {
-  // Wire up logout button if present
-  const logoutBtn = document.getElementById("nav-logout");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", logout);
-  }
+  /* Wire up logout button (retry while navbar loads) */
+  const wireLogout = () => {
+    const btn = document.getElementById("nav-logout");
+    if (btn) {
+      btn.addEventListener("click", logout);
+    } else {
+      setTimeout(wireLogout, 100);
+    }
+  };
+  wireLogout();
 
-  // Observe auth state
   onAuthStateChanged(auth, (user) => {
     updateNavbar(user);
     if (typeof pageCallback === "function") pageCallback(user);
   });
 }
 
-
-//   COMMON PAGE INIT  (theme + mobile nav)
-  // Call this on every page for shared behaviour.
- 
+/* ============================================================
+   COMMON PAGE INIT (theme)
+   initCommon no longer handles theme — theme.js / navbar.js do.
+   Kept for backward compatibility.
+   ============================================================ */
 export function initCommon() {
-  // Theme toggle
-  const saved = localStorage.getItem("theme") || "light";
-  document.documentElement.setAttribute("data-theme", saved);
-
-  const themeBtn = document.getElementById("theme-toggle");
-  if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-      const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    });
-  }
-
-  // Mobile hamburger menu
-  const toggle   = document.getElementById("nav-toggle");
-  const navLinks = document.getElementById("nav-links");
-  if (toggle && navLinks) {
-    toggle.addEventListener("click", () => {
-      toggle.classList.toggle("open");
-      navLinks.classList.toggle("open");
-    });
-    // Close on link click
-    navLinks.querySelectorAll("a").forEach(a =>
-      a.addEventListener("click", () => {
-        toggle.classList.remove("open");
-        navLinks.classList.remove("open");
-      })
-    );
-  }
+  /* Theme is already applied by navbar.js inline script.
+     This function is kept as a no-op stub to avoid breaking
+     pages that import and call it. */
 }
 
-
+/* ============================================================
+   GLOBAL LOADING OVERLAY
+   ============================================================ */
 export function showLoading(show) {
   let loader = document.getElementById("global-loader");
   if (!loader) {

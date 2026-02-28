@@ -1,4 +1,3 @@
-//  Central Firebase initialization & exports
 
 
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -9,6 +8,7 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   signOut,
   onAuthStateChanged,
   updateProfile
@@ -18,6 +18,10 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
+  doc,
+  deleteDoc,
+  updateDoc,
   query,
   orderBy,
   where,
@@ -31,16 +35,16 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 //hehe don't be oversmart -If i get you I'll ****!
-
 const firebaseConfig = {
-  apiKey: "AIzaSyAXkO4OxdHf1RtM8mLJnYNKevpPTxuKnLc",
-  authDomain: "lostfound-e4e04.firebaseapp.com",
-  projectId: "lostfound-e4e04",
-  storageBucket: "lostfound-e4e04.firebasestorage.app",
+  apiKey:            "AIzaSyAXkO4OxdHf1RtM8mLJnYNKevpPTxuKnLc",
+  authDomain:        "lostfound-e4e04.firebaseapp.com",
+  projectId:         "lostfound-e4e04",
+  storageBucket:     "lostfound-e4e04.firebasestorage.app",
   messagingSenderId: "1082022183109",
-  appId: "1:1082022183109:web:80f6393d186abaeafab0ac",
-  measurementId: "G-GLRBNNQSRJ"  // optional
+  appId:             "1:1082022183109:web:80f6393d186abaeafab0ac",
+  measurementId:     "G-GLRBNNQSRJ"
 };
+
 
 const app      = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const db       = getFirestore(app);
@@ -54,10 +58,27 @@ try { getAnalytics(app); } catch (_) { /* analytics optional */ }
 export {
   app, auth, db, storage, gProvider,
   /* auth helpers */
-  signInWithPopup, createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
   /* firestore helpers */
-  collection, addDoc, getDocs, query, orderBy, where, serverTimestamp,
+  collection,
+  addDoc,
+  getDocs,
+  getDoc,
+  doc,
+  deleteDoc,
+  updateDoc,
+  query,
+  orderBy,
+  where,
+  serverTimestamp,
   /* storage helpers */
-  storageRef, uploadBytes, getDownloadURL
+  storageRef,
+  uploadBytes,
+  getDownloadURL
 };

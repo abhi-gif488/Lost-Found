@@ -1,6 +1,3 @@
-//  Submit user feedback to Firestore
- 
-
 import {
   auth, db, collection, addDoc, serverTimestamp
 } from "./firebase-config.js";

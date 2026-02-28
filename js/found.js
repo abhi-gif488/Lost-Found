@@ -1,5 +1,4 @@
-// Found Items page — render, search, post modal
-  
+
 
 import { initCommon, initAuthObserver, showToast } from "./auth.js";
 import { submitItem, validateItemForm, setupImagePreview, setupDragDrop } from "./upload.js";
