@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Community Lost & Found Portal — Report and recover lost and found items in your community.">
   <title>Community Lost &amp; Found Portal</title>
+
+  // Load theme from localStorage before anything else to prevent flash of wrong theme
+  <script>
+  (function () {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+  })();
+</script>
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -380,6 +391,23 @@
   </footer>
 
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+      <script>
+
+    const toggleBtn = document.getElementById("theme-toggle");
+
+toggleBtn.addEventListener("click", () => {
+  const currentTheme = document.documentElement.getAttribute("data-theme");
+
+  if (currentTheme === "dark") {
+    document.documentElement.setAttribute("data-theme", "light");
+    localStorage.setItem("theme", "light");
+  } else {
+    document.documentElement.setAttribute("data-theme", "dark");
+    localStorage.setItem("theme", "dark");
+  }
+});
+  </script>
 
   <script type="module" src="./js/index.js"></script>
 </body>
