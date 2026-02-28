@@ -5,39 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Browse all reported found items — Community Lost & Found Portal">
   <title>Found Items | Community Lost &amp; Found Portal</title>
+
+  <!-- ✅ Apply theme before render — prevents flash -->
+  <script>
+    (function(){
+      try{
+        var t=localStorage.getItem('theme')||'dark';
+        document.documentElement.setAttribute('data-theme',t);
+      }catch(e){}
+    }());
+  </script>
+
+  <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/found.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav class="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <div class="nav-logo-icon">🔍</div>
-        Lost<span style="color:var(--accent)">&amp;</span>Found
-      </a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="nav-links" role="list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="lost.html">Lost Items</a></li>
-        <li><a href="found.html" class="active">Found Items</a></li>
-        <li><a href="about.html">About Us</a></li>
-      </ul>
-      <div class="nav-right">
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
-        <div class="nav-user">
-          <img id="nav-avatar" src="" alt="User avatar">
-          <span id="nav-username"></span>
-        </div>
-        <a href="login.html" id="nav-login" class="btn-primary">Sign In</a>
-        <button id="nav-logout" style="display:none">Sign Out</button>
-      </div>
-    </div>
-  </nav>
+  <div id="navbar"></div>
 
   <main>
     <!-- Page header -->
@@ -51,11 +37,13 @@
       <div class="section-inner">
 
         <!-- Action bar -->
-        <div id="post-btn-wrap" style="display:none;">
-          <button id="open-post-modal" class="btn-primary">✅ Report Found Item</button>
-        </div>
-        <div id="post-login-hint">
-          <a href="login.html" class="btn-ghost">Sign in to report an item</a>
+        <div class="action-bar">
+          <div id="post-btn-wrap" style="display:none;">
+            <button id="open-post-modal" class="btn-primary">✅ Report Found Item</button>
+          </div>
+          <div id="post-login-hint">
+            <a href="login.html" class="btn-ghost">🔐 Sign in to report an item</a>
+          </div>
         </div>
 
         <!-- Search & Filters -->
@@ -156,21 +144,10 @@
           </a>
           <p>A community-driven platform for reporting and recovering lost and found items.</p>
           <div class="footer-social">
-            <a href="https://x.com/abhi_i6691" class="social-btn" aria-label="Twitter">𝕏</a>
-            <a href="https://www.linkedin.com/in/abhishek-kumar-775bb92ba/" 
-   class="social-btn" 
-   aria-label="LinkedIn" 
-   target="_blank">
-   <i class="fa-brands fa-linkedin"></i>
-</a>
-
-<a href="https://www.instagram.com/abhi._.i6691" 
-   class="social-btn" 
-   aria-label="Instagram" 
-   target="_blank">
-   <i class="fa-brands fa-instagram"></i>
-</a>
-            <a href="abhishekkumar06204@gmail.com" class="social-btn" aria-label="Email">✉</a>
+            <a href="https://x.com/abhi_i6691" class="social-btn" aria-label="Twitter" target="_blank">𝕏</a>
+            <a href="https://www.linkedin.com/in/abhishek-kumar-775bb92ba/" class="social-btn" aria-label="LinkedIn" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://www.instagram.com/abhi._.i6691" class="social-btn" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="mailto:abhishekkumar06204@gmail.com" class="social-btn" aria-label="Email">✉</a>
           </div>
         </div>
         <div class="footer-col">
@@ -187,35 +164,31 @@
           <ul>
             <li><a href="login.html">Sign In</a></li>
             <li><a href="login.html">Register</a></li>
+           <li><a href="lost.html">Post Item</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Support</h4>
           <ul>
-            <li><a href="about.html">How it Works</a></li>
+            <li><a href="about.html#howitworks">How it Works</a></li>
             <li><a href="about.html#guidelines">Guidelines</a></li>
             <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <span>© 2025 Community Lost &amp; Found Portal. All rights reserved.</span>
-             </p>
         <p class="footer-developer">
-    Developed by 
-    <a href="https://www.linkedin.com/in/abhishek-kumar-775bb92ba/" target="_blank">
-         - Abhishek Kumar
-    </a> | 
-    <a href="https://www.linkedin.com/in/abhishek-kumar-775bb92ba/" target="_blank">
-        LinkedIn
-    </a>
-</p>
+          Developed by <a href="https://www.linkedin.com/in/abhishek-kumar-775bb92ba/" target="_blank">Abhishek Kumar</a>
+          | <a href="https://www.linkedin.com/in/abhishek-kumar-775bb92ba/" target="_blank">LinkedIn</a>
+        </p>
       </div>
     </div>
   </footer>
 
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
-
+  <script src="./js/navbar.js"></script>
   <script type="module" src="./js/found.js"></script>
 </body>
 </html>

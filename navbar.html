@@ -1,0 +1,50 @@
+<!-- ============================================================
+     navbar.html — Shared Navigation Bar
+     Loaded dynamically via js/navbar.js
+     ============================================================ -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo" aria-label="Community Lost and Found — Home">
+      <div class="nav-logo-icon">🔍</div>
+      Lost<span style="color:var(--accent)">&amp;</span>Found
+    </a>
+
+    <!-- Hamburger (mobile) -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Nav links -->
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lost.html">Lost Items</a></li>
+      <li><a href="found.html">Found Items</a></li>
+      <li><a href="about.html">About Us</a></li>
+    </ul>
+
+    <!-- Right cluster: theme + user + auth button -->
+    <div class="nav-right">
+
+      <!-- Theme toggle -->
+      <button class="theme-toggle" id="theme-toggle"
+              aria-label="Toggle dark mode" aria-pressed="true">
+        <span class="toggle-icon-moon" aria-hidden="true"></span>
+      </button>
+
+      <!-- User info (hidden until logged in) -->
+      <div class="nav-user">
+        <img id="nav-avatar" src="" alt="User avatar">
+        <span id="nav-username"></span>
+      </div>
+
+      <!-- Auth button slot — both buttons overlap, one shown at a time -->
+      <div class="nav-auth-wrap">
+        <a href="login.html" id="nav-login" class="show" aria-label="Sign in">Sign In</a>
+        <button id="nav-logout" type="button" aria-label="Sign out">Sign Out</button>
+      </div>
+
+    </div><!-- /.nav-right -->
+  </div><!-- /.nav-inner -->
+</nav>

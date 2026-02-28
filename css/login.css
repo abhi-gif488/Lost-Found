@@ -1,131 +1,124 @@
-/* ============================================================
-   css/login.css  —  Login / Register Page Styles
-   ============================================================ */
 
-/* ===== AUTH PAGE LAYOUT ===== */
 .auth-page {
-  min-height: calc(100vh - 68px);
+  min-height: calc(100vh - var(--nav-height));
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
 }
-
 .auth-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 450px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
-  padding: clamp(1.75rem, 5vw, 2.5rem);
+  padding: clamp(1.75rem,5vw,2.5rem);
   backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-lg);
   animation: slideUp 0.4s ease;
 }
 
-/* ===== LOGO / HEADER ===== */
-.auth-logo { text-align: center; margin-bottom: 2rem; }
-.auth-logo h1 {
-  font-family: var(--font-heading);
-  font-size: 1.6rem;
-  font-weight: 800;
-  margin-top: 0.5rem;
-}
-.auth-logo p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-top: 0.35rem;
-}
-
-/* ===== TABS ===== */
-.auth-tabs {
-  display: flex;
-  background: var(--bg-secondary);
+/* Logo / Header */
+.auth-logo { text-align: center; margin-bottom: 1.75rem; }
+.auth-logo-icon {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg,var(--accent),var(--accent-2));
   border-radius: var(--radius-sm);
-  padding: 4px;
-  margin-bottom: 1.5rem;
-  gap: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; margin: 0 auto 0.75rem;
+  box-shadow: 0 8px 24px rgba(99,102,241,0.35);
+}
+.auth-logo h1 { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; margin-bottom: 0.3rem; }
+.auth-logo p  { color: var(--text-secondary); font-size: 0.88rem; }
+
+/* Tabs */
+.auth-tabs {
+  display: flex; background: var(--bg-secondary);
+  border-radius: var(--radius-sm); padding: 4px;
+  margin-bottom: 1.5rem; gap: 4px;
 }
 .auth-tab {
-  flex: 1;
-  text-align: center;
-  padding: 0.55rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  transition: all 0.2s;
-  border: none;
-  background: transparent;
+  flex: 1; text-align: center; padding: 0.55rem;
+  border-radius: 8px; cursor: pointer; font-size: 0.88rem;
+  font-weight: 700; color: var(--text-secondary);
+  transition: all 0.2s; border: none; background: transparent;
 }
-.auth-tab.active {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-sm);
-}
+.auth-tab.active { background: var(--bg-card); color: var(--text-primary); box-shadow: var(--shadow-sm); }
 
-/* ===== GOOGLE BUTTON ===== */
+/* Google button */
 .btn-google {
-  width: 100%;
-  padding: 0.75rem;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  width: 100%; padding: 0.78rem;
+  background: var(--bg-secondary); border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm); cursor: pointer;
+  font-size: 0.9rem; font-weight: 600; color: var(--text-primary);
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem;
   transition: all 0.2s;
 }
 .btn-google:hover:not(:disabled) {
   border-color: var(--accent);
   background: rgba(99,102,241,0.06);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 .btn-google:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* ===== OR DIVIDER ===== */
+/* Divider */
 .divider {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 1.25rem 0;
-  color: var(--text-muted);
-  font-size: 0.8rem;
+  display: flex; align-items: center; gap: 0.75rem;
+  margin: 1.25rem 0; color: var(--text-muted); font-size: 0.8rem;
 }
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border-color);
-}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
 
-/* ===== PASSWORD STRENGTH ===== */
+/* Password strength */
 #password-strength {
-  font-size: 0.78rem;
-  font-weight: 600;
-  margin-top: 0.3rem;
-  min-height: 1.2em;
-  transition: color 0.3s;
+  font-size: 0.78rem; font-weight: 700; margin-top: 0.35rem;
+  min-height: 1.2em; transition: color 0.3s;
 }
 
-/* ===== FOOTER NOTE ===== */
-.auth-footer-note {
-  text-align: center;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  margin-top: 1.25rem;
-  line-height: 1.5;
+/* Forgot password link */
+.forgot-pw-wrap {
+  text-align: right; margin-top: 0.3rem; margin-bottom: 0;
 }
-.auth-footer-note a { color: var(--accent); text-decoration: none; }
+.forgot-pw-link {
+  font-size: 0.8rem; color: var(--accent); cursor: pointer;
+  background: none; border: none; padding: 0;
+  font-weight: 600; transition: color 0.2s; text-decoration: none;
+}
+.forgot-pw-link:hover { color: var(--accent-hover); text-decoration: underline; }
+
+/* Forgot password panel */
+.forgot-panel {
+  display: none;
+  animation: slideUp 0.3s ease;
+}
+.forgot-panel.active { display: block; }
+.forgot-back-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.82rem; color: var(--text-secondary); cursor: pointer;
+  background: none; border: none; padding: 0; font-weight: 600;
+  margin-bottom: 1.25rem; transition: color 0.2s;
+}
+.forgot-back-btn:hover { color: var(--accent); }
+.forgot-panel h3 { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 800; margin-bottom: 0.4rem; }
+.forgot-panel p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.6; }
+
+/* Footer note */
+.auth-footer-note { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-top: 1.25rem; line-height: 1.5; }
+.auth-footer-note a { color: var(--accent); }
 .auth-footer-note a:hover { text-decoration: underline; }
 
-/* ===== RESPONSIVE ===== */
+/* Password input wrapper */
+.pw-input-wrap { position: relative; }
+.pw-input-wrap .form-input { padding-right: 2.8rem; }
+.pw-toggle {
+  position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer;
+  font-size: 1rem; color: var(--text-muted);
+  display: flex; align-items: center; padding: 4px;
+  border-radius: 4px; transition: color 0.2s;
+}
+.pw-toggle:hover { color: var(--text-primary); }
+
 @media (max-width: 480px) {
   .auth-card { padding: 1.5rem 1.25rem; }
   .auth-page  { align-items: flex-start; padding-top: 1.5rem; }

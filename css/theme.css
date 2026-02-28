@@ -1,0 +1,80 @@
+
+/* ===== LIGHT MODE (default) ===== */
+:root {
+  --font-heading: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --bg-primary:    #f0f4ff;
+  --bg-secondary:  #e4eaf8;
+  --bg-card:       rgba(255,255,255,0.82);
+  --bg-nav:        rgba(240,244,255,0.92);
+  --bg-input:      rgba(255,255,255,0.9);
+  --border-color:  rgba(99,102,241,0.14);
+  --border-hover:  rgba(99,102,241,0.35);
+  --text-primary:  #0f172a;
+  --text-secondary:#475569;
+  --text-muted:    #94a3b8;
+  --accent:        #6366f1;
+  --accent-hover:  #4f46e5;
+  --accent-light:  rgba(99,102,241,0.08);
+  --accent-2:      #06b6d4;
+  --lost-color:    #ef4444;
+  --found-color:   #22c55e;
+  --warning:       #f59e0b;
+  --shadow-sm:     0 2px 12px rgba(99,102,241,0.07);
+  --shadow-md:     0 8px 32px rgba(99,102,241,0.11);
+  --shadow-lg:     0 20px 60px rgba(99,102,241,0.16);
+  --shadow-xl:     0 32px 80px rgba(99,102,241,0.22);
+  --glass-blur:    blur(18px);
+  --radius:        16px;
+  --radius-sm:     10px;
+  --radius-lg:     24px;
+  --radius-xl:     32px;
+  --transition:    0.22s ease;
+  --transition-slow: 0.4s ease;
+  --nav-height:    68px;
+}
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] {
+  --bg-primary:    #070b14;
+  --bg-secondary:  #0e1625;
+  --bg-card:       rgba(14,22,37,0.82);
+  --bg-nav:        rgba(7,11,20,0.94);
+  --bg-input:      rgba(14,22,37,0.9);
+  --border-color:  rgba(99,102,241,0.18);
+  --border-hover:  rgba(99,102,241,0.45);
+  --text-primary:  #f1f5f9;
+  --text-secondary:#94a3b8;
+  --text-muted:    #475569;
+  --accent-light:  rgba(99,102,241,0.12);
+  --shadow-sm:     0 2px 12px rgba(0,0,0,0.38);
+  --shadow-md:     0 8px 32px rgba(0,0,0,0.5);
+  --shadow-lg:     0 20px 60px rgba(0,0,0,0.62);
+  --shadow-xl:     0 32px 80px rgba(0,0,0,0.72);
+}
+
+/* ===== SMOOTH THEME TRANSITIONS =====
+   Only enabled AFTER initial page load to avoid flash */
+.theme-ready *,
+.theme-ready *::before,
+.theme-ready *::after {
+  transition:
+    background-color var(--transition-slow),
+    border-color     var(--transition-slow),
+    color            var(--transition-slow),
+    box-shadow       var(--transition-slow) !important;
+}
+/* Preserve custom transitions that shouldn't be overridden */
+.theme-ready .item-card,
+.theme-ready .feature-card,
+.theme-ready .stat-card,
+.theme-ready .btn-primary,
+.theme-ready .btn-secondary,
+.theme-ready .btn-ghost,
+.theme-ready .btn-submit,
+.theme-ready .btn-contact,
+.theme-ready .nav-links li a,
+.theme-ready .social-btn {
+  transition: all var(--transition) !important;
+}
