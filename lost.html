@@ -188,6 +188,49 @@
   </footer>
 
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+
+// Disable Right Click
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+});
+
+// Disable Shortcut Keys
+document.addEventListener("keydown", function (e) {
+
+  // Disable F12
+  if (e.key === "F12") {
+    e.preventDefault();
+  }
+
+  // Disable Ctrl+Shift+I
+  if (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "i")) {
+    e.preventDefault();
+  }
+
+  // Disable Ctrl+Shift+J
+  if (e.ctrlKey && e.shiftKey && (e.key === "J" || e.key === "j")) {
+    e.preventDefault();
+  }
+
+  // Disable Ctrl+U
+  if (e.ctrlKey && (e.key === "U" || e.key === "u")) {
+    e.preventDefault();
+    alert("View Source is disabled!");
+  }
+
+});
+
+// Detect DevTools Open
+setInterval(function () {
+  if (window.outerHeight - window.innerHeight > 150) {
+    document.body.innerHTML = "<h1>Developer Tools is disabled!</h1>";
+  }
+}, 1000);
+
+</script>
+
   <script src="./js/navbar.js"></script>
   <script type="module" src="./js/lost.js"></script>
 </body>
