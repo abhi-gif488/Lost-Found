@@ -1,8 +1,8 @@
-/* ============================================================
+/* 
    js/render.js
    Fetch, render and filter item cards.
    Includes owner-only edit & delete functionality.
-   ============================================================ */
+   */
 
 import {
   db, auth, collection, getDocs, getDoc, doc,
@@ -11,9 +11,9 @@ import {
 import { showToast, showLoading } from "./auth.js";
 import { downloadItemText } from "./upload.js";
 
-/* ============================================================
+/* 
    CACHE (one network call per page load)
-   ============================================================ */
+   */
 let _cache = null;
 
 async function getAllItems() {
@@ -33,17 +33,17 @@ async function getAllItems() {
 
 export function clearItemCache() { _cache = null; }
 
-/* ============================================================
+/* 
    PUBLIC FETCH
-   ============================================================ */
+    */
 export async function fetchItems(type = null) {
   const all = await getAllItems();
   return type ? all.filter(i => i.type === type) : all;
 }
 
-/* ============================================================
+/* 
    MOCK DATA (shown when Firebase not configured)
-   ============================================================ */
+   */
 function getMockItems() {
   return [
     { id:"m1", type:"lost",  title:"Blue Backpack",       category:"Bags",        description:"Navy blue Jansport backpack with laptop sleeve and a small red car keychain.", location:"Central Park, NYC",    date:"2025-01-15", image:null, userEmail:"alex@example.com",  userName:"Alex Johnson", contact:"alex@example.com",  userId:"mock1" },
@@ -55,9 +55,9 @@ function getMockItems() {
   ];
 }
 
-/* ============================================================
+/* 
    HELPERS
-   ============================================================ */
+ */
 const CATEGORY_ICONS = {
   Electronics:"📱", Bags:"🎒", Keys:"🔑", Wallets:"👛",
   Pets:"🐾", Jewelry:"💍", Clothing:"👕", Accessories:"👓",
@@ -73,10 +73,10 @@ function resolveImageURL(item) {
   return null;
 }
 
-/* ============================================================
+/* 
    ITEM CARD HTML
    Adds edit/delete buttons only when currentUser.uid === item.userId
-   ============================================================ */
+  */
 export function createItemCard(item, currentUserId = null) {
   const icon      = CATEGORY_ICONS[item.category] || "📦";
   const typeColor = item.type === "lost" ? "var(--lost-color)" : "var(--found-color)";
@@ -138,9 +138,9 @@ export function createItemCard(item, currentUserId = null) {
     </div>`;
 }
 
-/* ============================================================
+/* 
    SETUP GLOBAL ITEM ACTIONS
-   ============================================================ */
+  */
 function setupActions(itemMap) {
   window._lf = window._lf || {};
 
@@ -250,9 +250,9 @@ function setupActions(itemMap) {
   };
 }
 
-/* ============================================================
+/* 
    CONFIRMATION DIALOG
-   ============================================================ */
+ */
 function showConfirmDialog(title, message, onConfirm) {
   /* Remove any existing dialog */
   document.querySelector(".confirm-dialog")?.remove();
@@ -289,9 +289,9 @@ function showConfirmDialog(title, message, onConfirm) {
   });
 }
 
-/* ============================================================
+/* 
    EDIT MODAL
-   ============================================================ */
+  */
 function showEditModal(item, onSave) {
   document.querySelector(".edit-modal-overlay")?.remove();
 
@@ -375,9 +375,9 @@ function showEditModal(item, onSave) {
   });
 }
 
-/* ============================================================
+/* 
    RENDER FULL ITEMS GRID
-   ============================================================ */
+  */
 export async function renderItemsGrid(containerId, type = null) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -401,9 +401,9 @@ export async function renderItemsGrid(containerId, type = null) {
   container.innerHTML = items.map(item => createItemCard(item, currentUserId)).join("");
 }
 
-/* ============================================================
+/* 
    RENDER RECENT PREVIEW (home page)
-   ============================================================ */
+   */
 export async function renderRecentPreview(lostId, foundId, limit = 3) {
   const all   = await fetchItems();
   window._allItems = all;
@@ -432,9 +432,9 @@ export async function renderRecentPreview(lostId, foundId, limit = 3) {
   }
 }
 
-/* ============================================================
+/* 
    SEARCH & FILTER
-   ============================================================ */
+   */
 export function setupSearchAndFilter(containerId, searchId, categoryId, typeId) {
   const searchEl   = document.getElementById(searchId);
   const categoryEl = document.getElementById(categoryId);
@@ -481,9 +481,9 @@ export function setupSearchAndFilter(containerId, searchId, categoryId, typeId) 
   typeEl?.addEventListener("change", apply);
 }
 
-/* ============================================================
+/* 
    HELPERS
-   ============================================================ */
+   */
 function skeletons(n) {
   return `<div class="loading-grid">${Array.from({ length: n }, () =>
     '<div class="skeleton-card"></div>').join("")}</div>`;

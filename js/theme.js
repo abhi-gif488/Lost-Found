@@ -1,6 +1,6 @@
 /**
  * js/theme.js — Theme Management
- * =========================================
+ * Handles dark/light mode toggling and persistence.
  * This script is loaded as a regular (non-module) script
  * BEFORE body content to eliminate the light/dark flash.
  *
@@ -10,10 +10,7 @@
 (function () {
   'use strict';
 
-  /* --------------------------------------------------------
-     STEP 1: Apply saved theme IMMEDIATELY (before paint)
-     Called inline in <head> via the inline bootstrap snippet.
-     -------------------------------------------------------- */
+  /*
   function applyThemeInstant() {
     try {
       const saved = localStorage.getItem('theme') || 'dark';
@@ -23,9 +20,9 @@
     }
   }
 
-  /* --------------------------------------------------------
-     STEP 2: After DOM ready — wire up toggle button
-     -------------------------------------------------------- */
+  /* 
+     STEP 2: After DOM ready — wire up toggle 
+      */
   function initThemeToggle() {
     const btn = document.getElementById('theme-toggle');
     if (!btn) return;
@@ -49,10 +46,10 @@
     });
   }
 
-  /* --------------------------------------------------------
+  /* 
      STEP 3: After page load — enable smooth transitions
      (prevents the transition firing on initial load)
-     -------------------------------------------------------- */
+     */
   function enableTransitions() {
     // Small delay to ensure first render is done
     requestAnimationFrame(function () {
@@ -62,9 +59,9 @@
     });
   }
 
-  /* --------------------------------------------------------
+  /* 
      EXPORTS on window for HTML pages to call
-     -------------------------------------------------------- */
+    */
   window.ThemeManager = {
     applyInstant:   applyThemeInstant,
     initToggle:     initThemeToggle,
