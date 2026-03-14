@@ -151,8 +151,12 @@ main { position: relative; z-index: 1; }
   width: 0;
 }
 /* When user is logged in, restore size */
-#nav-avatar.show { visibility: visible; opacity: 1; width: 32px; }
-#nav-username.show { visibility: visible; opacity: 1; width: auto; max-width: 110px; }
+#nav-avatar.show {
+  visibility: visible; opacity: 1; width: 32px;
+  box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent);
+}
+#nav-avatar.show:hover { box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px #06b6d4; }
+#nav-username.show { visibility: visible; opacity: 1; width: auto; max-width: 120px; }
 
 /* Auth button wrapper — both buttons occupy the same fixed slot */
 .nav-auth-wrap {
