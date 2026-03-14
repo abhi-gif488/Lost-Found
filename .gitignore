@@ -1,0 +1,17 @@
+# ============================================================
+#  .gitignore — Files that must NEVER be pushed to GitHub
+# ============================================================
+
+# Firebase credentials — contains real API keys
+# (also auto-generated at Netlify build time, never commit either version)
+js/firebase-env.js
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/settings.json
+
+# Logs
+*.log
