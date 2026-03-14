@@ -1,0 +1,13 @@
+# netlify.toml
+# ─────────────────────────────────────────────────────────────
+# Tells Netlify how to build and deploy your site.
+# ─────────────────────────────────────────────────────────────
+
+[build]
+  # This command runs BEFORE your site goes live.
+  # It generates js/firebase-env.js from your environment variables.
+  command = "node generate-env.js"
+
+  # The folder Netlify serves as the live website.
+  # Since your HTML files are in the root, this stays as "."
+  publish = "."
